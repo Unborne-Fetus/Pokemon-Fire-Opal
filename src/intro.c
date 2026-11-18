@@ -1051,7 +1051,8 @@ static void SerialCB_CopyrightScreen(void)
 
 static u8 SetUpCopyrightScreen(void)
 {
-    if (IS_FRLG)
+    // Fire Opal uses FireRed's opening independently of its Emerald game base.
+    if (IS_FRLG || FIRE_OPAL_FRLG_OPENING)
         return SetUpCopyrightScreenFrlg();
 
     switch (gMain.state)
