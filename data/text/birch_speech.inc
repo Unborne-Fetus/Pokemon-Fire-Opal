@@ -1,10 +1,9 @@
 gText_Birch_Welcome::
-	.string "Hi! Sorry to keep you waiting!\p"
-	.string "Welcome to the world of POKéMON!\p"
-	.string "My name is BIRCH.\p"
-	.string "But everyone calls me the POKéMON\n"
-	.string "PROFESSOR.\p"
-	.string "$"
+	.string "Hola, my name is Prof. Cypress!\p"
+	.string "Welcome to the world of Pokémon!\p"
+	.string "The Agave region is home to a\n"
+	.string "vast array of Pokémon.\p"
+	.string "I'm sure you'll love it here.$"
 
 gText_Birch_Pokemon::
 	.string "This is what we call a “POKéMON.”\p"
@@ -32,8 +31,8 @@ gText_Birch_AndYouAre::
 	.string "And you are?$"
 
 gText_Birch_BoyOrGirl::
-	.string "Are you a boy?\n"
-	.string "Or are you a girl?$"
+	.string "Are you a chico?\n"
+	.string "Or are you a chica?$"
 
 gText_Birch_WhatsYourName::
 	.string "All right.\n"
