@@ -13,6 +13,13 @@ The planned setting takes inspiration from Mexico's varied landscapes and cultur
   - Use **L/R** outside edit mode to cycle party Pokémon.
 - Underlying `pokeemerald-expansion` engine and its existing functionality. Features supplied by the base are not necessarily custom Fire Opal features.
 
+## Tileset library
+
+- [Fire Opal tileset staging library](assets/fire_opal/tilesets/README.md) — desert, village, forest, reef, volcano, town, and snow artwork prepared for later map work.
+- [Tileset artist credits and original resource references](docs/TILESET_CREDITS.md) — individual creator attributions and import status.
+
+**These graphics are staged in the repository, not yet applied to in-game maps.** New palettes, metatiles, and collisions must be registered and tested before the region uses them.
+
 ## Building
 
 Follow the upstream [installation and build instructions](INSTALL.md). A properly configured GBA development toolchain is required. The repository includes source code and assets, not a distributable ROM.
