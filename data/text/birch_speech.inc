@@ -1,28 +1,28 @@
 gText_Birch_Welcome::
-	.string "Hola, my name is Prof. Cypress!\p"
-	.string "Welcome to the world of Pokémon!\p"
+	.string "¡Hola! I'm Professor Cypress!\p"
+	.string "Welcome to the world of\n"
+	.string "Pokémon!\p"
 	.string "The Agave region is home to a\n"
 	.string "vast array of Pokémon.\p"
 	.string "I'm sure you'll love it here.$"
 
 gText_Birch_Pokemon::
-	.string "This is what we call a “Pokémon.”\p"
-	.string "\n"
+	.string "Here, let me show you one!\p"
 	.string "$"
 
 gText_Birch_MainSpeech::
 	.string "This world is widely inhabited by\n"
 	.string "creatures known as Pokémon.\p"
-	.string "We gente live with Pokémon,\n"
-	.string "We band together, like family\n"
-	.string "and battle others like us.\p"
-	.string "But despite our closeness, we don't\n"
-	.string "know everything about Pokémon.\p"
-	.string "In fact, there are many, many\n"
-	.string "secrets surrounding Pokémon.\p"
-	.string "To unravel Pokémon mysteries,\n"
-	.string "I've been undertaking research.\l"
-	.string "That's what I do.\p"
+	.string "Here in Agave, la gente lives\n"
+	.string "alongside Pokémon, like family.\p"
+	.string "We work, explore, and sometimes\n"
+	.string "even battle side by side.\p"
+	.string "But despite our closeness, we\n"
+	.string "don't know everything about them.\p"
+	.string "There are still many mysteries\n"
+	.string "surrounding Pokémon.\p"
+	.string "That's why I've devoted my life\n"
+	.string "to researching them.\p"
 	.string "$"
 
 gText_Birch_AndYouAre::
@@ -34,21 +34,22 @@ gText_Birch_BoyOrGirl::
 
 gText_Birch_WhatsYourName::
 	.string "All right.\n"
-	.string "What's your nombre?$"
+	.string "What's your name?$"
 
 gText_Birch_SoItsPlayer::
-	.string "So it's {PLAYER}{KUN}?$"
+	.string "So it's {PLAYER}?$"
 
 gText_Birch_YourePlayer::
-	.string "Alright Cuz!\p"
-	.string "You're {PLAYER}{KUN} who's moving to\n"
-	.string "precioso Pequecheveria.\l"
-	.string "$"
+	.string "¡Mucho gusto, {PLAYER}!\p"
+	.string "You're moving to beautiful\n"
+	.string "Pequecheveria, right?\p"
+	.string "Now I remember!$"
 
 gText_Birch_AreYouReady::
-	.string "Rápido ahora,\p"
-	.string "Your adventure is about\n"
-	.string "to begin.\p"
+	.string "¡Vamos! Your adventure is\n"
+	.string "about to begin!\p"
+	.string "There's so much to discover\n"
+	.string "across Agave.\p"
 	.string "Well, I must be going.\n"
-	.string "Come see me in my Pokémon LAB.\p"
+	.string "Come see me at my Pokémon Lab!\p"
 	.string "$"
