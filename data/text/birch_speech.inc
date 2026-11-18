@@ -40,19 +40,15 @@ gText_Birch_SoItsPlayer::
 	.string "So it's {PLAYER}{KUN}?$"
 
 gText_Birch_YourePlayer::
-	.string "Ah, okay!\p"
-	.string "You're {PLAYER}{KUN} who's moving to my\n"
-	.string "hometown of LITTLEROOT.\l"
-	.string "I get it now!\p"
+	.string "Alright Cuz!\p"
+	.string "You're {PLAYER}{KUN} who's moving to\n"
+	.string "precioso Pequecheveria.\l"
 	.string "$"
 
 gText_Birch_AreYouReady::
-	.string "All right, are you ready?\p"
-	.string "Your very own adventure is about\n"
-	.string "to unfold.\p"
-	.string "Take courage, and leap into the\n"
-	.string "world of Pokémon where dreams,\l"
-	.string "adventure, and friendships await!\p"
-	.string "Well, I'll be expecting you later.\n"
+	.string "Rápido ahora,\p"
+	.string "Your adventure is about\n"
+	.string "to begin.\p"
+	.string "Well, I must be going.\n"
 	.string "Come see me in my Pokémon LAB.\p"
 	.string "$"
