@@ -276,7 +276,8 @@ void Task_HandleExpansionIntro(u8 taskId)
             ResetSpriteData();
             FreeAllSpritePalettes();
             DestroyTask(taskId);
-            if (IS_FRLG)
+            // Route back to the FireRed Gengar/Nidorino cinematic after the RHH splash.
+            if (IS_FRLG || FIRE_OPAL_FRLG_OPENING)
             {
                 SetMainCallback2(CB2_SetUpIntroFrlg);
             }
