@@ -541,7 +541,9 @@ struct BattlerState
     u16 notOnField:1;
     u16 originalBattlerPartyId:4;
     u16 isFirstTurn:2; // Starts at 2 on switch in and counts down during end turn
-    u16 padding:8;
+    u16 standDownUsed:1; // First actual HP-damaging hit this switch-in has resolved.
+    u16 standDownTriggerPending:1; // Apply defensive stat changes after the first hit.
+    u16 padding:6;
     // End of Word
 };
 

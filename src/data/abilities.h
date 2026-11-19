@@ -3074,4 +3074,10 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_STRING("Immune to Attract and spread moves; 1.5x singles damage."),
         .aiRating = 8,
     },
+    [ABILITY_STAND_DOWN] =
+    {
+        .name = _("Stand Down"),
+        .description = COMPOUND_STRING("First hit halved; raises defenses, but lowers Speed."),
+        .aiRating = 8,
+    },
 };
