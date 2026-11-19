@@ -426,6 +426,7 @@ enum __attribute__((packed)) Ability
     ABILITY_LONELY_BOY,
     // Jessie laid down the offensive edge of Containment Protocol.
     ABILITY_STAND_DOWN,
+    ABILITY_SHADOW_RAGE,
     ABILITIES_COUNT,
 };
 

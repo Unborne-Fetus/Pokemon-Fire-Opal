@@ -325,7 +325,8 @@ enum VolatileFlags
     F(VOLATILE_SILENT_GOLAITH_PRIMED,       silentGolaithPrimed,           (u32, 1)) \
     F(VOLATILE_SILENT_GOLAITH_SPENT,        silentGolaithSpent,            (u32, 1)) \
     F(VOLATILE_JACKIE_TRADES_USED,          jackieTradesUsed,             (u32, 1)) \
-    F(VOLATILE_MOTHERLY_LOVE_TURNS,         motherlyLoveTurns,            (u32, 3))
+    F(VOLATILE_MOTHERLY_LOVE_TURNS,         motherlyLoveTurns,            (u32, 3)) \
+    F(VOLATILE_SHADOW_RAGE_ACTIVE,          shadowRageActive,             (u32, 1))
 
 
 /* Use within a macro to get the maximum allowed value for a volatile. Requires _typeMaxValue as input. */

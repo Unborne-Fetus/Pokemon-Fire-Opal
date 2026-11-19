@@ -1142,6 +1142,7 @@ bool32 CanThrowBall(void)
 static const u8 sText_CantThrowPokeBall_TwoMons[] = _("Cannot throw a ball!\nThere are two Pokémon out there!\p");
 static const u8 sText_CantThrowPokeBall_SemiInvulnerable[] = _("Cannot throw a ball!\nThere's no Pokémon in sight!\p");
 static const u8 sText_CantThrowPokeBall_Disabled[] = _("POKé BALLS cannot be used\nright now!\p");
+static const u8 sText_ShadowRageNoItems[] = _("That Pokémon is in Reverse Mode!\nItems cannot be used on it.\p");
 
 static void ItemUseInBattle_ShowPartyMenu(u8 taskId)
 {
@@ -1206,6 +1207,24 @@ bool32 CannotUseItemsInBattle(enum Item itemId, struct Pokemon *mon)
         battlerTarget = B_POSITION_PLAYER_RIGHT;
     else
         battlerTarget = MAX_POSITION_COUNT;
+
+    // XD-style Reverse Mode blocks bag items targeted at a raging Pokémon.
+    // Compare real party indexes, not battler positions: the lead need not be
+    // party slot zero, and doubles can have two active Shadow Pokémon.
+    if (battleUsage != EFFECT_ITEM_THROW_BALL && battleUsage != EFFECT_ITEM_ESCAPE)
+    {
+        for (enum BattlerId active = 0; active < gBattlersCount; active++)
+        {
+            if (IsOnPlayerSide(active)
+             && gBattlerPartyIndexes[active] == gPartyMenu.slotId
+             && GetBattlerAbility(active) == ABILITY_SHADOW_RAGE
+             && gBattleMons[active].volatiles.shadowRageActive)
+            {
+                StringExpandPlaceholders(gStringVar4, sText_ShadowRageNoItems);
+                return TRUE;
+            }
+        }
+    }
 
     // Embargo Check
     if (battlerTarget < MAX_POSITION_COUNT && GetItemType(itemId) != ITEM_USE_BAG_MENU)

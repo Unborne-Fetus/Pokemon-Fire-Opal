@@ -3893,6 +3893,17 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
             case ABILITY_FLIPPING_POLES:
                 gBattleMons[battler].volatiles.truantCounter ^= 1;
                 break;
+            case ABILITY_SHADOW_RAGE:
+                // XD-style Reverse Mode: a raging Shadow Pokemon suffers
+                // one sixteenth of its maximum HP at every turn's end.
+                if (gBattleMons[battler].volatiles.shadowRageActive)
+                {
+                    gBattlerAbility = gBattleScripting.battler = battler;
+                    SetPassiveDamageAmount(battler, max(1, GetNonDynamaxMaxHP(battler) / 16));
+                    BattleScriptCall(BattleScript_ShadowRageRecoil);
+                    effect++;
+                }
+                break;
             case ABILITY_MOTHERLY_LOVE:
                 if (gBattleMons[battler].volatiles.motherlyLoveTurns > 0
                  && --gBattleMons[battler].volatiles.motherlyLoveTurns == 0)
@@ -4980,6 +4991,25 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
     case ABILITYEFFECT_MOVE_END_ATTACKER: // Same as above, but for attacker
         switch (gLastUsedAbility)
         {
+        case ABILITY_SHADOW_RAGE:
+            // XD Reverse Mode begins after an attack, without consuming the
+            // move. Roll no more than once per turn (including spread moves).
+            if (IsBattlerAlive(battler)
+             && !gBattleStruct->unableToUseMove
+             && !gSpecialStatuses[battler].attackerInParty
+             && !gBattleMons[battler].volatiles.shadowRageActive
+             && gBattleStruct->battlerState[battler].shadowRageLastTurn != gBattleTurnCounter)
+            {
+                gBattleStruct->battlerState[battler].shadowRageLastTurn = gBattleTurnCounter;
+                if (RandomPercentage(RNG_SHADOW_RAGE, 20))
+                {
+                    gBattleMons[battler].volatiles.shadowRageActive = TRUE;
+                    gBattlerAbility = gBattleScripting.battler = battler;
+                    BattleScriptCall(BattleScript_AbilityPopUp);
+                    effect++;
+                }
+            }
+            break;
         case ABILITY_SEA_HUNTER:
             if (!gBattleStruct->unableToUseMove
              && IsBattlerAlive(gBattlerAttacker)

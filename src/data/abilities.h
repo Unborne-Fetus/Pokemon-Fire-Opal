@@ -3080,4 +3080,10 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .description = COMPOUND_STRING("First hit halved; raises defenses, but lowers Speed."),
         .aiRating = 8,
     },
+    [ABILITY_SHADOW_RAGE] =
+    {
+        .name = _("Shadow Rage"),
+        .description = COMPOUND_STRING("May enter Reverse Mode; loses HP while enraged."),
+        .aiRating = 4,
+    },
 };
