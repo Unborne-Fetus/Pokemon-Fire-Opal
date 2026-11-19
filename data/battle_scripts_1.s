@@ -5102,6 +5102,14 @@ BattleScript_HurtAttackerNoMsg:
 	tryfaintmon BS_ATTACKER
 	return
 
+@ Reverse Mode's end-of-turn recoil; the ability popup signals
+@ the Shadow Rage condition without mislabeling it as another status.
+BattleScript_ShadowRageRecoil::
+    call BattleScript_AbilityPopUp
+    call BattleScript_DoTurnDmg
+    waitabilitypopup
+    return
+
 BattleScript_RoughSkinActivates::
 	flushtextbox
 	call BattleScript_AbilityPopUp
