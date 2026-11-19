@@ -2556,4 +2556,522 @@ const struct AbilityInfo gAbilitiesInfo[ABILITIES_COUNT] =
         .name = _("Aura Guard"),
         .description = COMPOUND_STRING("Unimplemented."),
     },
+
+    // Brisk Emerald custom ability catalogue (unassigned in Fire Opal).
+    [ABILITY_SPEED_BOXER] =
+    {
+        .name = _("Speed Boxer"),
+        .description = COMPOUND_STRING("Punches use Speed, not Attack."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_NINE_LIVES] =
+    {
+        .name = _("Nine Lives"),
+        .description = COMPOUND_STRING("First super-effective hit sharply raises defenses."),
+        .aiRating = 7,
+    },
+
+    [ABILITY_GRAND_MAESTRO] =
+    {
+        .name = _("Grand Maestro"),
+        .description = COMPOUND_STRING("Sound moves use its highest battle stat for damage."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_HEARTBREAKER] =
+    {
+        .name = _("Heartbreaker"),
+        .description = COMPOUND_STRING("On a foe's knockout, deals half its max HP in damage."),
+        .aiRating = 7,
+    },
+
+    [ABILITY_WEB_EXCRETANT] =
+    {
+        .name = _("Web Excretant"),
+        .description = COMPOUND_STRING("On entry, sharply raises Speed and lowers others' Evasion."),
+        .aiRating = 9,
+    },
+
+    [ABILITY_FLASH_FREEZE] =
+    {
+        .name = _("Flash Freeze"),
+        .description = COMPOUND_STRING("Ice attacks freeze 40%; double damage to frozen foes."),
+        .aiRating = 9,
+    },
+
+    [ABILITY_SOLAR_FLEET] =
+    {
+        .name = _("Solar Fleet"),
+        .description = COMPOUND_STRING("Speed gains three stat stages in harsh sunlight."),
+        .aiRating = 9,
+    },
+
+    [ABILITY_JAW_SNAP] =
+    {
+        .name = _("Jaw Snap"),
+        .description = COMPOUND_STRING("Contact attackers lose 1/6 HP; Bug types lose 1/3."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_DURAN] =
+    {
+        .name = _("Duran"),
+        .description = COMPOUND_STRING("Raises Evasion by 3 stages on entry."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_CLEARWATER] =
+    {
+        .name = _("Clearwater"),
+        .description = COMPOUND_STRING("All moves gain priority; takes double damage."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_BUILD_ME_UP] =
+    {
+        .name = _("Build Me Up"),
+        .description = COMPOUND_STRING("Each turn raises one stat and lowers each foe's stat."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_OVERDOSE] =
+    {
+        .name = _("Overdose"),
+        .description = COMPOUND_STRING("Badly poisoning a foe removes half its max HP."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_BURNING_CRUST] =
+    {
+        .name = _("Burning Crust"),
+        .description = COMPOUND_STRING("Immune to Ground; Water damage is halved."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_OGOOUE_BASIN] =
+    {
+        .name = _("Ogooué Basin"),
+        .description = COMPOUND_STRING("Water moves deal double damage."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_NOPALES] =
+    {
+        .name = _("Nopales"),
+        .description = COMPOUND_STRING("Resists Fire; draws Water moves to heal."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_TORSION] =
+    {
+        .name = _("Torsion"),
+        .description = COMPOUND_STRING("Halves damage from physical attacks."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_CRASHER_WAKE] =
+    {
+        .name = _("Crasher Wake"),
+        .description = COMPOUND_STRING("Water attacks use Attack and halve the foe's Defense."),
+        .aiRating = 9,
+    },
+
+    [ABILITY_MASTER_THIEF] =
+    {
+        .name = _("Master Thief"),
+        .description = COMPOUND_STRING("On entry, randomly redistributes held items."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_PSYCHIC_GRAVITY] =
+    {
+        .name = _("Psychic Gravity"),
+        .description = COMPOUND_STRING("Super-effective attacks against it have -5 priority."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_RAGE_WINGS] =
+    {
+        .name = _("Rage Wings"),
+        .description = COMPOUND_STRING("Its attacks and attacks against it are super effective."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_CHROMATOPHORES] =
+    {
+        .name = _("Chromatophores"),
+        .description = COMPOUND_STRING("Resists incoming attacks; all attacks gain STAB."),
+        .aiRating = 9,
+    },
+
+    [ABILITY_POISON_WART] =
+    {
+        .name = _("Poison Wart"),
+        .description = COMPOUND_STRING("Contact attacks made or received have a 50% chance to poison the other Pokémon."),
+        .aiRating = 8,
+    },
+    [ABILITY_FLAME_TAIL] =
+    {
+        .name = _("Flame Tail"),
+        .description = COMPOUND_STRING("Tail attacks deal 1.5x damage and have a 50% chance to burn."),
+        .aiRating = 9,
+    },
+    [ABILITY_POWER_CANNONS] =
+    {
+        .name = _("Power Cannons"),
+        .description = COMPOUND_STRING("Moves that force a recharge turn deal double damage."),
+        .aiRating = 9,
+    },
+    [ABILITY_HEMLOCK_WINGS] =
+    {
+        .name = _("Hemlock Wings"),
+        .description = COMPOUND_STRING("Contact attackers are paralyzed (70%) or put to sleep (30%)."),
+        .aiRating = 9,
+    },
+    [ABILITY_PETIOLE] =
+    {
+        .name = _("Petiole"),
+        .description = COMPOUND_STRING("Raises Speed one stage for every successful hit on a foe."),
+        .aiRating = 9,
+    },
+    [ABILITY_BLIND_DIVE] =
+    {
+        .name = _("Blind Dive"),
+        .description = COMPOUND_STRING("Recoil moves deal 1.5x damage without recoil."),
+        .aiRating = 9,
+    },
+    [ABILITY_LIGHTNING_BILL] =
+    {
+        .name = _("Lightning Bill"),
+        .description = COMPOUND_STRING("Flying-type moves gain +1 priority."),
+        .aiRating = 9,
+    },
+    [ABILITY_HOOD_FLARE] =
+    {
+        .name = _("Hood Flare"),
+        .description = COMPOUND_STRING("Damaging moves have 2x power but all moves lose 1 priority."),
+        .aiRating = 10,
+    },
+    [ABILITY_EVOLUTION_DENIAL] =
+    {
+        .name = _("Evolution Denial"),
+        .description = COMPOUND_STRING("Always gets Eviolite-like Defense and Sp. Def boosts."),
+        .aiRating = 9,
+    },
+    [ABILITY_QUEENS_GAMBIT] =
+    {
+        .name = _("Queen's Gambit"),
+        .description = COMPOUND_STRING("If an ally has fainted, gains +2 in five battle stats."),
+        .aiRating = 9,
+    },
+    [ABILITY_MOMENTUM_BUILD] =
+    {
+        .name = _("Momentum Build"),
+        .description = COMPOUND_STRING("Each turn may raise Speed; also ignores foe abilities."),
+        .aiRating = 9,
+    },
+    [ABILITY_LUNAR_POWER] =
+    {
+        .name = _("Lunar Power"),
+        .description = COMPOUND_STRING("Holding a Moon Stone boosts all five stats by one stage."),
+        .aiRating = 9,
+    },
+    [ABILITY_MAGIC_TAIL] =
+    {
+        .name = _("Magic Tail"),
+        .description = COMPOUND_STRING("Special moves are always super effective."),
+        .aiRating = 9,
+    },
+    [ABILITY_SWEET_SONG] =
+    {
+        .name = _("Sweet Song"),
+        .description = COMPOUND_STRING("Sound attacks may cause sleep; cannot be put to sleep."),
+        .aiRating = 9,
+    },
+    [ABILITY_HOLOPARASITE] =
+    {
+        .name = _("Holoparasite"),
+        .description = COMPOUND_STRING("Absorbs Water/Grass; resists Bug and gains Speed."),
+        .aiRating = 9,
+    },
+    [ABILITY_WEDDING_GIFT] =
+    {
+        .name = _("Wedding Gift"),
+        .description = COMPOUND_STRING("Contact with the opposite gender inflicts poison."),
+        .aiRating = 9,
+    },
+    [ABILITY_DEEP_DIVE] =
+    {
+        .name = _("Deep Dive"),
+        .description = COMPOUND_STRING("Doubles Ground damage; blocks spread moves."),
+        .aiRating = 9,
+    },
+    [ABILITY_DOUBLE_COAT] =
+    {
+        .name = _("Double Coat"),
+        .description = COMPOUND_STRING("Immune to status; halves Fighting damage."),
+        .aiRating = 9,
+    },
+    [ABILITY_PSYCHIC_POWERS] =
+    {
+        .name = _("Psychic Powers"),
+        .description = COMPOUND_STRING("Normal moves become Psychic-type."),
+        .aiRating = 9,
+    },
+    [ABILITY_PANHUS_LINEAGE] =
+    {
+        .name = _("Panhu's Lineage"),
+        .description = COMPOUND_STRING("Raises Attack by two stages upon a knockout."),
+        .aiRating = 9,
+    },
+    [ABILITY_SILENT_GOLAITH] =
+    {
+        .name = _("Silent Golaith"),
+        .description = COMPOUND_STRING("Starts at +2 Evasion; sound moves reset Evasion."),
+        .aiRating = 9,
+    },
+    [ABILITY_FLAME_TONGUE] =
+    {
+        .name = _("Flame Tongue"),
+        .description = COMPOUND_STRING("Fire hits both foes; deals 1.5x to Bug types."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_SPOON_BEND] =
+    {
+        .name = _("Spoon Bend"),
+        .description = COMPOUND_STRING("Steel foes take super-effective damage."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_KAYFABE] =
+    {
+        .name = _("Kayfabe"),
+        .description = COMPOUND_STRING("Moves have a 25% chance to crit."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_POISON_GUT] =
+    {
+        .name = _("Poison Gut"),
+        .description = COMPOUND_STRING("Water and Grass hits poison foes."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_SEDIMENTARY_BUILDUP] =
+    {
+        .name = _("Sediment Buildup"),
+        .description = COMPOUND_STRING("Changes a third type each turn."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_MISSING_RIDER] =
+    {
+        .name = _("Missing Rider"),
+        .description = COMPOUND_STRING("Doubles Speed in single battles."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_MEGATHERIUM] =
+    {
+        .name = _("Megatherium"),
+        .description = COMPOUND_STRING("Grass attacks restore HP."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_LARGE_EYES] =
+    {
+        .name = _("Large Eyes"),
+        .description = COMPOUND_STRING("Always hits; foes miss 5% more."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_SEA_COW] =
+    {
+        .name = _("Sea Cow"),
+        .description = COMPOUND_STRING("Grass moves are not super effective."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_WASTEWATER] =
+    {
+        .name = _("Wastewater"),
+        .description = COMPOUND_STRING("Poison may become Water vs Ground."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_ADDUCTOR] =
+    {
+        .name = _("Adductor"),
+        .description = COMPOUND_STRING("Contact attackers take 25% recoil."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_FLOATING_WISP] =
+    {
+        .name = _("Floating Wisp"),
+        .description = COMPOUND_STRING("Immune to Ground-type moves."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_HYPNOSIS] =
+    {
+        .name = _("Hypnosis"),
+        .description = COMPOUND_STRING("Foes grow stronger but confused."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_CALCIFICATION] =
+    {
+        .name = _("Calcification"),
+        .description = COMPOUND_STRING("Doubles defenses; lowers foe Speed."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_FLIPPING_POLES] =
+    {
+        .name = _("Flipping Poles"),
+        .description = COMPOUND_STRING("Safe when acting; exposed at rest."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_TOXIC_COPRA] =
+    {
+        .name = _("Toxic Copra"),
+        .description = COMPOUND_STRING("Biting attacks poison attacker."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_BRUCE_FORCE] =
+    {
+        .name = _("Bruce Force"),
+        .description = COMPOUND_STRING("Double Attack; risky super hits."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_JACKIE_OF_TRADES] =
+    {
+        .name = _("Jackie of Trades"),
+        .description = COMPOUND_STRING("On a weakness hit, stats become 105."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_MOTHERLY_LOVE] =
+    {
+        .name = _("Motherly Love"),
+        .description = COMPOUND_STRING("Physical hits spark a Fighting rage."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_LONG_LEGS] =
+    {
+        .name = _("Long Legs"),
+        .description = COMPOUND_STRING("Faster in rain; raises Attack."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_HEY_DAD] =
+    {
+        .name = _("Hey Dad"),
+        .description = COMPOUND_STRING("Foes are infatuated while present."),
+        .aiRating = 8,
+    },
+
+    [ABILITY_OPERATIC_VOICE] =
+    {
+        .name = _("Operatic Voice"),
+        .description = COMPOUND_STRING("Sound moves deal double damage."),
+        .aiRating = 8,
+    },
+    [ABILITY_HERCULES] =
+    {
+        .name = _("Hercules"),
+        .description = COMPOUND_STRING("Moves hit Normal, Ice, Rock, Dark and Steel super effectively."),
+        .aiRating = 8,
+    },
+    [ABILITY_CRETAN] =
+    {
+        .name = _("Cretan"),
+        .description = COMPOUND_STRING("Doubles Attack; Water hits always confuse."),
+        .aiRating = 8,
+    },
+    [ABILITY_JADE_BLESSING] =
+    {
+        .name = _("Jade Blessing"),
+        .description = COMPOUND_STRING("7.5% chance each turn to sharply raise a random stat."),
+        .aiRating = 8,
+    },
+    [ABILITY_WE_WILL_ROCK_YOU] =
+    {
+        .name = _("We Will Rock You"),
+        .description = COMPOUND_STRING("Immune to Ground and Electric attacks."),
+        .aiRating = 8,
+    },
+    [ABILITY_THATS_GROSS] =
+    {
+        .name = _("That's Gross"),
+        .description = COMPOUND_STRING("Water hits raise Speed by two stages."),
+        .aiRating = 8,
+    },
+    [ABILITY_PLASMA_DISCHARGE] =
+    {
+        .name = _("Plasma Discharge"),
+        .description = COMPOUND_STRING("Electric attacks become Water if Water is super effective."),
+        .aiRating = 8,
+    },
+    [ABILITY_ADRENALINE_RAGE] =
+    {
+        .name = _("Adrenaline Rage"),
+        .description = COMPOUND_STRING("Fire hits raise Sp. Atk by two stages."),
+        .aiRating = 8,
+    },
+    [ABILITY_EXTINCTION_EVENT] =
+    {
+        .name = _("Extinction Event"),
+        .description = COMPOUND_STRING("Super effective against Monster, Bug and Dragon egg groups."),
+        .aiRating = 8,
+    },
+    [ABILITY_CHITIN] =
+    {
+        .name = _("Chitin"),
+        .description = COMPOUND_STRING("Doubles Defense and Sp. Def."),
+        .aiRating = 8,
+    },
+    [ABILITY_SEA_HUNTER] =
+    {
+        .name = _("Sea Hunter"),
+        .description = COMPOUND_STRING("Hitting Water foes restores 1/6 max HP."),
+        .aiRating = 8,
+    },
+    [ABILITY_NERVE_TICKLE] =
+    {
+        .name = _("Nerve Tickle"),
+        .description = COMPOUND_STRING("Immune to Fighting attacks."),
+        .aiRating = 8,
+    },
+    [ABILITY_COLD_AS_ICE] =
+    {
+        .name = _("Cold as Ice"),
+        .description = COMPOUND_STRING("Attract ignores gender; 2x singles damage; Ice 1.15x."),
+        .aiRating = 8,
+    },
+    [ABILITY_ELECTRIC_SLIDE] =
+    {
+        .name = _("Electric Slide"),
+        .description = COMPOUND_STRING("Normal becomes Electric; Attract ignores gender; Electric 1.15x."),
+        .aiRating = 8,
+    },
+    [ABILITY_BURNING_LOVE] =
+    {
+        .name = _("Burning Love"),
+        .description = COMPOUND_STRING("Contact burns foes; Attract ignores gender; Fire 1.15x."),
+        .aiRating = 8,
+    },
+    [ABILITY_LONELY_BOY] =
+    {
+        .name = _("Lonely Boy"),
+        .description = COMPOUND_STRING("Immune to Attract and spread moves; 1.5x singles damage."),
+        .aiRating = 8,
+    },
 };

@@ -1749,6 +1749,19 @@ void SetNonVolatileStatus(enum BattlerId battlerAtk, enum BattlerId effectBattle
 
     if ((effect == MOVE_EFFECT_POISON || effect == MOVE_EFFECT_TOXIC) && trigger == TRIGGER_ON_MOVE)
         gSpecialStatuses[effectBattler].poisonPuppeteer = TRUE;
+
+    // Overdose applies after the normal toxic infliction animation and
+    // status icon, then returns to the original battle-script continuation.
+    if (effect == MOVE_EFFECT_TOXIC
+     && trigger == TRIGGER_ON_MOVE
+     && GetBattlerAbility(battlerAtk) == ABILITY_OVERDOSE
+     && !IsBattlerAlly(battlerAtk, effectBattler)
+     && IsBattlerAlive(effectBattler))
+    {
+        gBattlerAbility = gBattleScripting.battler = battlerAtk;
+        SetPassiveDamageAmount(effectBattler, max(1, GetNonDynamaxMaxHP(effectBattler) / 2));
+        BattleScriptPush(BattleScript_OverdoseDamage);
+    }
 }
 
 static bool32 CanApplyAdditionalEffect(const struct AdditionalEffect *additionalEffect)
@@ -1818,13 +1831,25 @@ static void Cmd_setadditionaleffects(void)
             // Various checks for if this move effect can be applied this turn
             if (CanApplyAdditionalEffect(additionalEffect))
             {
-                percentChance = CalcSecondaryEffectChance(gBattlerAttacker, cv.abilities[cv.battlerAtk], additionalEffect);
+                bool32 flashFreezeIce = cv.abilities[cv.battlerAtk] == ABILITY_FLASH_FREEZE
+                                     && GetBattleMoveType(gCurrentMove) == TYPE_ICE
+                                     && !IsBattleMoveStatus(gCurrentMove);
+                bool32 nativeFreeze = additionalEffect->moveEffect == MOVE_EFFECT_FREEZE
+                                   || additionalEffect->moveEffect == MOVE_EFFECT_FROSTBITE;
+
+                percentChance = flashFreezeIce && nativeFreeze
+                              ? 40
+                              : CalcSecondaryEffectChance(gBattlerAttacker, cv.abilities[cv.battlerAtk], additionalEffect);
 
                 // Activate effect if it's primary (chance == 0) or if RNGesus says so
                 if ((percentChance == 0) || RandomPercentage(RNG_SECONDARY_EFFECT + gBattleStruct->additionalEffectsCounter, percentChance))
                 {
                     se.additionalEffect = additionalEffect;
-                    se.moveEffect = additionalEffect->moveEffect;
+                    // Flash Freeze always causes freeze, not frostbite, even
+                    // if the original Ice move uses the frostbite setting.
+                    se.moveEffect = flashFreezeIce && nativeFreeze
+                                  ? MOVE_EFFECT_FREEZE
+                                  : additionalEffect->moveEffect;
                     se.script = gBattlescriptCurrInstr;
                     se.effectBattler = additionalEffect->self ? cv.battlerAtk : cv.battlerDef;
                     se.primary = percentChance == 0;
@@ -1835,6 +1860,31 @@ static void Cmd_setadditionaleffects(void)
             }
 
             gBattleStruct->additionalEffectsCounter++;
+            return;
+        }
+
+        // Ice attacks with no native freeze/frostbite chance still get a
+        // single 40% freeze roll. The native-freeze path above already
+        // handled such moves, so it never double-rolls Ice Beam / Blizzard.
+        // Normal damage/substitute and status-immunity checks still apply.
+        if (cv.abilities[cv.battlerAtk] == ABILITY_FLASH_FREEZE
+         && !IsBattleMoveStatus(gCurrentMove)
+         && GetBattleMoveType(gCurrentMove) == TYPE_ICE
+         && !MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_FREEZE)
+         && !MoveHasAdditionalEffect(gCurrentMove, MOVE_EFFECT_FROSTBITE)
+         && gBattleStruct->additionalEffectsCounter == numAdditionalEffects)
+        {
+            gBattleStruct->additionalEffectsCounter++;
+            if (IsBattlerTurnDamaged(cv.battlerDef, EXCLUDING_SUBSTITUTES)
+             && IsBattlerAlive(cv.battlerDef)
+             && !gBattleStruct->toxicChainPriority
+             && RandomPercentage(RNG_SECONDARY_EFFECT + numAdditionalEffects, 40))
+            {
+                se.moveEffect = MOVE_EFFECT_FREEZE;
+                se.script = gBattlescriptCurrInstr;
+                se.effectBattler = cv.battlerDef;
+                SetMoveEffect(&cv, &se);
+            }
             return;
         }
     }
@@ -5745,6 +5795,14 @@ static void Cmd_animatewildpokemonafterfailedpokeball(void)
     gBattlescriptCurrInstr = cmd->nextInstr;
 }
 
+static bool32 BriskAttractOverridesGender(enum BattlerId attacker, enum BattlerId target)
+{
+    enum Ability atk = GetBattlerAbility(attacker);
+    enum Ability def = GetBattlerAbility(target);
+    return atk == ABILITY_COLD_AS_ICE || atk == ABILITY_ELECTRIC_SLIDE || atk == ABILITY_BURNING_LOVE
+        || def == ABILITY_COLD_AS_ICE || def == ABILITY_ELECTRIC_SLIDE || def == ABILITY_BURNING_LOVE;
+}
+
 static void Cmd_tryinfatuating(void)
 {
     CMD_ARGS(const u8 *failInstr);
@@ -5761,18 +5819,20 @@ static void Cmd_tryinfatuating(void)
         return;
     }
 
-    if (GetBattlerAbility(gBattlerTarget) == ABILITY_OBLIVIOUS)
+    if (GetBattlerAbility(gBattlerTarget) == ABILITY_OBLIVIOUS
+     || GetBattlerAbility(gBattlerTarget) == ABILITY_LONELY_BOY)
     {
         gBattlescriptCurrInstr = BattleScript_NotAffectedAbilityPopUp;
         gBattleStruct->moveResultFlags[gBattlerTarget] |= MOVE_RESULT_DOESNT_AFFECT_FOE;
         gBattlerAbility = gBattlerTarget;
-        gLastUsedAbility = ABILITY_OBLIVIOUS;
-        RecordAbilityBattle(gBattlerTarget, ABILITY_OBLIVIOUS);
+        gLastUsedAbility = GetBattlerAbility(gBattlerTarget);
+        RecordAbilityBattle(gBattlerTarget, gLastUsedAbility);
     }
     else
     {
         if (gBattleMons[gBattlerTarget].volatiles.infatuation
-            || !AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget))
+            || (!AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget)
+             && !BriskAttractOverridesGender(gBattlerAttacker, gBattlerTarget)))
         {
             gBattlescriptCurrInstr = cmd->failInstr;
         }
@@ -10165,9 +10225,11 @@ void BS_TrySetInfatuation(void)
     NATIVE_ARGS(const u8 *failInstr);
 
     if (!gBattleMons[gBattlerTarget].volatiles.infatuation
-        && gBattleMons[gBattlerTarget].ability != ABILITY_OBLIVIOUS
+        && GetBattlerAbility(gBattlerTarget) != ABILITY_OBLIVIOUS
+        && GetBattlerAbility(gBattlerTarget) != ABILITY_LONELY_BOY
         && !IsAbilityOnSide(gBattlerTarget, ABILITY_AROMA_VEIL)
-        && AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget))
+        && (AreBattlersOfOppositeGender(gBattlerAttacker, gBattlerTarget)
+         || BriskAttractOverridesGender(gBattlerAttacker, gBattlerTarget)))
     {
         gBattleMons[gBattlerTarget].volatiles.infatuation = INFATUATED_WITH(gBattlerAttacker);
         gBattleCommunication[MULTIUSE_STATE] = 2;

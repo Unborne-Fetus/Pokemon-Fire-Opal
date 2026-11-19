@@ -267,7 +267,9 @@ static enum CancelerResult CancelerPowerPoints(struct BattleCalcValues *cv)
 
 static enum CancelerResult CancelerTruant(struct BattleCalcValues *cv)
 {
-    if (GetBattlerAbility(cv->battlerAtk) == ABILITY_TRUANT && gBattleMons[cv->battlerAtk].volatiles.truantCounter)
+    if ((GetBattlerAbility(cv->battlerAtk) == ABILITY_TRUANT
+      || GetBattlerAbility(cv->battlerAtk) == ABILITY_FLIPPING_POLES)
+     && gBattleMons[cv->battlerAtk].volatiles.truantCounter)
     {
         CancelMultiTurnMoves(cv->battlerAtk);
         gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_LOAFING;
@@ -399,6 +401,22 @@ static enum CancelerResult CancelerImprisoned(struct BattleCalcValues *cv)
 static enum CancelerResult CancelerConfused(struct BattleCalcValues *cv)
 {
     struct Volatiles *vol = &gBattleMons[cv->battlerAtk].volatiles;
+    bool32 hypnoPresent = FALSE;
+
+    // Hypnosis grants confusion only while an opposing user is on the field.
+    for (enum BattlerId foe = 0; foe < gBattlersCount; foe++)
+    {
+        if (IsBattlerAlive(foe) && !IsBattlerAlly(cv->battlerAtk, foe)
+         && GetBattlerAbility(foe) == ABILITY_HYPNOSIS)
+        {
+            hypnoPresent = TRUE;
+            break;
+        }
+    }
+    if (hypnoPresent && vol->confusionTimer == 0)
+        vol->confusionTimer = PERMANENT_VOLATILE;
+    else if (!hypnoPresent && vol->confusionTimer == PERMANENT_VOLATILE)
+        vol->confusionTimer = 0;
 
     if (vol->confusionTimer)
     {
@@ -472,9 +490,27 @@ static enum CancelerResult CancelerParalyzed(struct BattleCalcValues *cv)
 
 static enum CancelerResult CancelerInfatuation(struct BattleCalcValues *cv)
 {
+    enum BattlerId charmSource = MAX_BATTLERS_COUNT;
+    // Lonely Boy ignores both ordinary Attract and passive infatuation auras.
+    if (GetBattlerAbility(cv->battlerAtk) == ABILITY_LONELY_BOY)
+        return CANCELER_RESULT_SUCCESS;
     if (gBattleMons[cv->battlerAtk].volatiles.infatuation)
+        charmSource = gBattleMons[cv->battlerAtk].volatiles.infatuation - 1;
+    else
     {
-        gBattleScripting.battler = gBattleMons[cv->battlerAtk].volatiles.infatuation - 1;
+        for (enum BattlerId foe = 0; foe < gBattlersCount; foe++)
+        {
+            if (IsBattlerAlive(foe) && !IsBattlerAlly(cv->battlerAtk, foe)
+             && GetBattlerAbility(foe) == ABILITY_HEY_DAD)
+            {
+                charmSource = foe;
+                break;
+            }
+        }
+    }
+    if (charmSource < gBattlersCount)
+    {
+        gBattleScripting.battler = charmSource;
         if (!RandomPercentage(RNG_INFATUATION, 50))
         {
             BattleScriptCall(BattleScript_MoveUsedIsInLove);
@@ -837,6 +873,24 @@ static bool32 HandleMoveTargetRedirection(struct BattleCalcValues *cv, enum Move
 {
     u32 redirectorOrderNum = MAX_BATTLERS_COUNT;
     enum BattleSide side = (GetBattlerSide(cv->battlerAtk) ^ BIT_SIDE);
+
+    // Nopales intercepts targeted Water attacks, regardless of original
+    // target or which side used the move, and heals the Maractus instead.
+    if (GetBattleMoveType(cv->move) == TYPE_WATER
+     && moveTarget != TARGET_USER && moveTarget != TARGET_USER_AND_ALLY
+     && moveTarget != TARGET_OPPONENTS_FIELD && moveTarget != TARGET_FIELD)
+    {
+        for (enum BattlerId i = 0; i < gBattlersCount; i++)
+        {
+            if (IsBattlerAlive(i) && cv->abilities[i] == ABILITY_NOPALES)
+            {
+                cv->battlerDef = gBattleStruct->moveTarget[cv->battlerAtk] = i;
+                RecordAbilityBattle(i, ABILITY_NOPALES);
+                gSpecialStatuses[i].abilityRedirected = TRUE;
+                return TRUE;
+            }
+        }
+    }
 
     if (cv->moveEffect == EFFECT_REFLECT_DAMAGE)
     {
@@ -3373,6 +3427,7 @@ static enum MoveEndResult MoveEndAbsorb(struct BattleCalcValues *cv)
         if (IsBattlerAlive(cv->battlerAtk)
          && !gBattleStruct->unableToUseMove
          && !gSpecialStatuses[cv->battlerAtk].mindBlownRecoil
+         && !IsAbilityAndRecord(cv->battlerAtk, cv->abilities[cv->battlerAtk], ABILITY_BLIND_DIVE)
          && !IsAbilityAndRecord(cv->battlerAtk, cv->abilities[cv->battlerAtk], ABILITY_MAGIC_GUARD))
         {
             s32 recoil = (GetNonDynamaxMaxHP(cv->battlerAtk) + 1) / 2; // Half of Max HP Rounded UP
@@ -4160,7 +4215,8 @@ static enum MoveEndResult MoveEndMoveBlockRecoil(struct BattleCalcValues *cv)
     case EFFECT_CHLOROBLAST:
         if (IsBattlerTurnDamaged(cv->battlerDef, INCLUDING_SUBSTITUTES) && IsBattlerAlive(cv->battlerAtk))
         {
-            if (IsAbilityAndRecord(cv->battlerAtk, cv->abilities[cv->battlerAtk], ABILITY_ROCK_HEAD)
+            if (IsAbilityAndRecord(cv->battlerAtk, cv->abilities[cv->battlerAtk], ABILITY_BLIND_DIVE)
+              || IsAbilityAndRecord(cv->battlerAtk, cv->abilities[cv->battlerAtk], ABILITY_ROCK_HEAD)
              || IsAbilityAndRecord(cv->battlerAtk, cv->abilities[cv->battlerAtk], ABILITY_MAGIC_GUARD))
                 break;
 
