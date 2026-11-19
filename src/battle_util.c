@@ -4375,6 +4375,26 @@ u32 AbilityBattleEffects(enum AbilityEffect caseID, enum BattlerId battler, enum
                 effect++;
             }
             break;
+        case ABILITY_STAND_DOWN:
+            // The first damaging hit has already been reduced and recorded.
+            // A surviving user reinforces its defenses instead of retaliating.
+            if (gBattleStruct->battlerState[battler].standDownTriggerPending)
+            {
+                gBattleStruct->battlerState[battler].standDownTriggerPending = FALSE;
+                if (IsBattlerAlive(battler))
+                {
+                    gEffectBattler = gBattlerAbility = battler;
+                    if (CompareStat(battler, STAT_DEF, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility))
+                        SetStatChange(battler, STAT_DEF, 2);
+                    if (CompareStat(battler, STAT_SPDEF, MAX_STAT_STAGE, CMP_LESS_THAN, gLastUsedAbility))
+                        SetStatChange(battler, STAT_SPDEF, 2);
+                    if (CompareStat(battler, STAT_SPEED, MIN_STAT_STAGE, CMP_GREATER_THAN, gLastUsedAbility))
+                        SetStatChange(battler, STAT_SPEED, -1);
+                    BattleScriptCall(BattleScript_AbilityStatChange);
+                    effect++;
+                }
+            }
+            break;
         case ABILITY_NINE_LIVES:
             // The first super-effective hit Delcatty survives per switch-in
             // sharply raises both defenses. Volatiles clear on switching,
@@ -8980,6 +9000,24 @@ s32 GetAdjustedDamage(struct DamageContext *ctx, s32 damage)
     return damage;
 }
 
+// Stand Down keeps the defensive half of Xiphos' Containment Protocol,
+// but does not have its offensive retaliation. Never consume the one-hit
+// protection during prediction: the hit resolver records actual HP loss.
+static bool32 StandDownShouldReduceDamage(struct DamageContext *ctx, s32 damage)
+{
+    if (damage <= 0
+     || ctx->abilities[ctx->battlerDef] != ABILITY_STAND_DOWN
+     || gBattleStruct->battlerState[ctx->battlerDef].standDownUsed
+     || ctx->isSelfInflicted
+     || ctx->battlerAtk == ctx->battlerDef
+     || gSpecialStatuses[ctx->battlerAtk].attackerInParty
+     || DoesSubstituteBlockMove(ctx->battlerAtk, ctx->battlerDef, ctx->move)
+     || DoesDisguiseBlockMove(ctx->battlerDef, ctx->move)
+     || DoesIceFaceBlockMove(ctx->battlerDef, ctx->move))
+        return FALSE;
+    return TRUE;
+}
+
 s32 CalculateMoveDamage(struct DamageContext *ctx)
 {
     s32 damage = 0;
@@ -9029,6 +9067,9 @@ s32 CalculateMoveDamage(struct DamageContext *ctx)
             damage = max(1, damage / 2);
     }
 
+    if (StandDownShouldReduceDamage(ctx, damage))
+        damage = max(1, damage / 2);
+
     return GetAdjustedDamage(ctx, damage);
 }
 
@@ -9068,6 +9109,9 @@ s32 CalculateMoveDamageVars(struct DamageContext *ctx)
         if (ctx->abilities[ctx->battlerDef] == ABILITY_TORSION && IsBattleMovePhysical(ctx->move))
             damage = max(1, damage / 2);
     }
+
+    if (StandDownShouldReduceDamage(ctx, damage))
+        damage = max(1, damage / 2);
 
     return damage;
 }
