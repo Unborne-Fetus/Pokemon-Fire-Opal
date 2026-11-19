@@ -424,6 +424,8 @@ enum __attribute__((packed)) Ability
     ABILITY_ELECTRIC_SLIDE,
     ABILITY_BURNING_LOVE,
     ABILITY_LONELY_BOY,
+    // Jessie laid down the offensive edge of Containment Protocol.
+    ABILITY_STAND_DOWN,
     ABILITIES_COUNT,
 };
 
