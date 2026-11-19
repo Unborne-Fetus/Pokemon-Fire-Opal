@@ -2,6 +2,8 @@
 
 - [README](./README.md)
 - [FEATURES](./FEATURES.md)
+- [Fire Opal: Jessie’s Archaludon — Stand Down](./design/jessie-archaludon-stand-down.md)
+- [Fire Opal: Shadow Rage](./design/shadow-rage.md)
 - [Installation](./INSTALL.md)
     - [Setting up WSL1 (Legacy Portion)](./legacy_WSL1_INSTALL.md)
     - [ChromeOS](./install/chromeos/CHROME_OS.md)
