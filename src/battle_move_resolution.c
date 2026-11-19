@@ -3092,7 +3092,20 @@ static bool32 TryMoveDamageUpdate(struct BattleCalcValues *cv)
 
             hpLost = hpBefore - gBattleMons[cv->battlerDef].hp;
             if (hpLost != 0)
+            {
                 gBattleStruct->innardsOutHpLost[cv->battlerDef] += hpLost;
+
+                // Only an actual hit on HP spends Stand Down's once-per-switch shield.
+                // The pending response is shown in the usual ability event phase.
+                if (cv->abilities[cv->battlerDef] == ABILITY_STAND_DOWN
+                 && !gBattleStruct->battlerState[cv->battlerDef].standDownUsed
+                 && cv->battlerAtk != cv->battlerDef
+                 && !gSpecialStatuses[cv->battlerAtk].attackerInParty)
+                {
+                    gBattleStruct->battlerState[cv->battlerDef].standDownUsed = TRUE;
+                    gBattleStruct->battlerState[cv->battlerDef].standDownTriggerPending = TRUE;
+                }
+            }
 
             gProtectStructs[cv->battlerDef].assuranceDoubled = TRUE;
             gProtectStructs[cv->battlerDef].revengeDoubled |= 1u << cv->battlerAtk;
