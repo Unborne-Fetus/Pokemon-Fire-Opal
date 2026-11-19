@@ -1208,16 +1208,22 @@ bool32 CannotUseItemsInBattle(enum Item itemId, struct Pokemon *mon)
     else
         battlerTarget = MAX_POSITION_COUNT;
 
-    // XD-style Reverse Mode: prevent use of items on a raging Pokémon,
-    // not on a teammate or when throwing Poké Balls at opposing Pokémon.
-    if (battlerTarget < MAX_POSITION_COUNT
-     && battleUsage != EFFECT_ITEM_THROW_BALL
-     && battleUsage != EFFECT_ITEM_ESCAPE
-     && GetBattlerAbility(battlerTarget) == ABILITY_SHADOW_RAGE
-     && gBattleMons[battlerTarget].volatiles.shadowRageActive)
+    // XD-style Reverse Mode blocks bag items targeted at a raging Pokémon.
+    // Compare real party indexes, not battler positions: the lead need not be
+    // party slot zero, and doubles can have two active Shadow Pokémon.
+    if (battleUsage != EFFECT_ITEM_THROW_BALL && battleUsage != EFFECT_ITEM_ESCAPE)
     {
-        StringExpandPlaceholders(gStringVar4, sText_ShadowRageNoItems);
-        return TRUE;
+        for (enum BattlerId active = 0; active < gBattlersCount; active++)
+        {
+            if (IsOnPlayerSide(active)
+             && gBattlerPartyIndexes[active] == gPartyMenu.slotId
+             && GetBattlerAbility(active) == ABILITY_SHADOW_RAGE
+             && gBattleMons[active].volatiles.shadowRageActive)
+            {
+                StringExpandPlaceholders(gStringVar4, sText_ShadowRageNoItems);
+                return TRUE;
+            }
+        }
     }
 
     // Embargo Check
