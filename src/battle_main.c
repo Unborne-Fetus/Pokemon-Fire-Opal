@@ -2903,6 +2903,8 @@ static void ClearSetDataOnLeave(enum BattlerId battler)
     gBattleStruct->battlerState[battler].isFirstTurn = 2;
     gBattleStruct->battlerState[battler].stompingTantrumTimer = 0;
     // Stand Down is once per switch-in; Baton Pass cannot carry its activation.
+    gBattleStruct->battlerState[battler].shadowRageLastTurn = 0xFFFF;
+    gBattleMons[battler].volatiles.shadowRageActive = FALSE;
     gBattleStruct->battlerState[battler].standDownUsed = FALSE;
     gBattleStruct->battlerState[battler].standDownTriggerPending = FALSE;
     gBattleStruct->battlerState[battler].canPickupItem = FALSE;
