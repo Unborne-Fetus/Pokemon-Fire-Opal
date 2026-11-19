@@ -4380,10 +4380,29 @@ u32 GetBattlerTotalSpeedStat(enum BattlerId battler, enum Ability ability, enum 
     speed /= gStatStageRatios[gBattleMons[battler].statStages[STAT_SPEED]][1];
 
     u32 weather = GetWeather();
+    u32 speedStage = gBattleMons[battler].statStages[STAT_SPEED];
+
+    // Solar Fleet is a temporary +3 Speed stage bonus, not a permanent
+    // stat change. This respects the +6 stage cap and immediately ends
+    // when sun fades, a weather-suppression ability activates, or the
+    // user's ability changes. It also never stacks each turn.
+    if (ability == ABILITY_SOLAR_FLEET
+     && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
+     && (weather & B_WEATHER_SUN))
+        speedStage = min(speedStage + 3, MAX_STAT_STAGE);
+
+    speed *= gStatStageRatios[speedStage][0];
+    speed /= gStatStageRatios[speedStage][1];
+
+    if (ability == ABILITY_MISSING_RIDER && !IsDoubleBattle())
+        speed *= 2;
+
     // weather abilities
     if (ability == ABILITY_SWIFT_SWIM       && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && weather  & B_WEATHER_RAIN)
         speed *= 2;
     else if (ability == ABILITY_CHLOROPHYLL && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && weather  & B_WEATHER_SUN)
+        speed *= 2;
+    else if (ability == ABILITY_LONG_LEGS && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && weather & B_WEATHER_RAIN)
         speed *= 2;
     else if (ability == ABILITY_SAND_RUSH   && weather & B_WEATHER_SANDSTORM)
         speed *= 2;
@@ -4463,6 +4482,15 @@ s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Mov
 
     priority = GetMovePriority(move);
 
+    // Clearwater raises every move's usual priority by one bracket.
+    // Negative-priority moves retain their relative drawbacks.
+    if (ability == ABILITY_CLEARWATER)
+        priority++;
+    if (ability == ABILITY_LIGHTNING_BILL && GetMoveType(move) == TYPE_FLYING)
+        priority++;
+    if (ability == ABILITY_HOOD_FLARE)
+        priority--;
+
     // Max Guard check
     if (GetActiveGimmick(battler) == GIMMICK_DYNAMAX && GetMoveCategory(move) == DAMAGE_CATEGORY_STATUS)
         return GetMovePriority(MOVE_MAX_GUARD);
@@ -4491,6 +4519,40 @@ s32 GetBattleMovePriority(enum BattlerId battler, enum Ability ability, enum Mov
     else if (ability == ABILITY_TRIAGE && IsHealingMove(move))
     {
         priority += 3;
+    }
+
+    // Psychic Gravity sets incoming super-effective moves to priority -5.
+    // Use the selected target in doubles; spread moves can strike any foe.
+    if (GetMoveCategory(move) != DAMAGE_CATEGORY_STATUS)
+    {
+        enum MoveTarget targetType = GetMoveTarget(move);
+        enum Type moveType = GetMoveType(move);
+        for (enum BattlerId defender = 0; defender < gBattlersCount; defender++)
+        {
+            enum Type types[3];
+            uq4_12_t effectiveness = UQ_4_12(1.0);
+            bool32 spread;
+            if (defender == battler || IsBattlerAlly(battler, defender)
+             || !IsBattlerAlive(defender)
+             || GetBattlerAbility(defender) != ABILITY_PSYCHIC_GRAVITY)
+                continue;
+
+            spread = targetType == TARGET_BOTH || targetType == TARGET_FOES_AND_ALLY;
+            if (!spread && gBattleStruct->moveTarget[battler] != defender)
+                continue;
+
+            GetBattlerTypes(defender, FALSE, types);
+            effectiveness = uq4_12_multiply(effectiveness, GetTypeModifier(moveType, types[0]));
+            if (types[1] != types[0])
+                effectiveness = uq4_12_multiply(effectiveness, GetTypeModifier(moveType, types[1]));
+            if (types[2] != TYPE_MYSTERY && types[2] != types[0] && types[2] != types[1])
+                effectiveness = uq4_12_multiply(effectiveness, GetTypeModifier(moveType, types[2]));
+            if (effectiveness > UQ_4_12(1.0))
+            {
+                priority = -5;
+                break;
+            }
+        }
     }
 
     return priority;
@@ -5782,6 +5844,42 @@ void SetTypeBeforeUsingMove(enum Move move, enum BattlerId battler, enum Ability
     if ((gFieldStatuses & STATUS_FIELD_ION_DELUGE && moveType == TYPE_NORMAL)
      || gBattleMons[battler].volatiles.electrified)
         gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;
+
+    // Wastewater makes some Poison hits Water-type against Ground targets.
+    if (ability == ABILITY_WASTEWATER && GetMoveType(move) == TYPE_POISON
+     && !IsBattleMoveStatus(move)
+     && gBattleStruct->moveTarget[battler] < gBattlersCount
+     && IsBattlerAlive(gBattleStruct->moveTarget[battler])
+     && IS_BATTLER_OF_TYPE(gBattleStruct->moveTarget[battler], TYPE_GROUND)
+     && RandomPercentage(RNG_POISON_POINT, 50))
+        gBattleStruct->dynamicMoveType = TYPE_WATER;
+
+    // Electric Slide converts Normal moves, including status moves, into Electric.
+    if (ability == ABILITY_ELECTRIC_SLIDE && GetMoveType(move) == TYPE_NORMAL)
+        gBattleStruct->dynamicMoveType = TYPE_ELECTRIC;
+
+    // Plasma Discharge changes damaging Electric attacks to Water only if
+    // the complete target typing would take super-effective Water damage.
+    if (ability == ABILITY_PLASMA_DISCHARGE && GetMoveType(move) == TYPE_ELECTRIC
+     && !IsBattleMoveStatus(move)
+     && gBattleStruct->moveTarget[battler] < gBattlersCount
+     && IsBattlerAlive(gBattleStruct->moveTarget[battler]))
+    {
+        enum Type types[3];
+        uq4_12_t effectiveness = UQ_4_12(1.0);
+        GetBattlerTypes(gBattleStruct->moveTarget[battler], FALSE, types);
+        effectiveness = uq4_12_multiply(effectiveness, GetTypeModifier(TYPE_WATER, types[0]));
+        if (types[1] != types[0])
+            effectiveness = uq4_12_multiply(effectiveness, GetTypeModifier(TYPE_WATER, types[1]));
+        if (types[2] != TYPE_MYSTERY && types[2] != types[0] && types[2] != types[1])
+            effectiveness = uq4_12_multiply(effectiveness, GetTypeModifier(TYPE_WATER, types[2]));
+        if (effectiveness > UQ_4_12(1.0))
+            gBattleStruct->dynamicMoveType = TYPE_WATER;
+    }
+
+    // Psychic Powers converts damaging Normal attacks into Psychic attacks.
+    if (ability == ABILITY_PSYCHIC_POWERS && GetMoveType(move) == TYPE_NORMAL && !IsBattleMoveStatus(move))
+        gBattleStruct->dynamicMoveType = TYPE_PSYCHIC;
 
     // Check if a gem should activate.
     u32 effect = GetMoveEffect(move);
