@@ -2902,6 +2902,9 @@ static void ClearSetDataOnLeave(enum BattlerId battler)
     gSpecialStatuses[battler].shellBellEmergencyExit = FALSE;
     gBattleStruct->battlerState[battler].isFirstTurn = 2;
     gBattleStruct->battlerState[battler].stompingTantrumTimer = 0;
+    // Stand Down is once per switch-in; Baton Pass cannot carry its activation.
+    gBattleStruct->battlerState[battler].standDownUsed = FALSE;
+    gBattleStruct->battlerState[battler].standDownTriggerPending = FALSE;
     gBattleStruct->battlerState[battler].canPickupItem = FALSE;
     gBattleStruct->battlerState[battler].wasAboveHalfHp = gBattleMons[battler].hp > gBattleMons[battler].maxHP / 2;
     gBattleStruct->choicedMove[battler] = MOVE_NONE;
