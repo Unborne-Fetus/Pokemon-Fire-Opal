@@ -536,6 +536,7 @@ struct BattlerState
     u32 selectionScriptFinished:1;
     u32 lastMoveTarget:3; // The last target on which each mon used a move, for the sake of Instruct
     // End of Word
+    u16 shadowRageLastTurn; // Gate the Reverse Mode roll to once per action/turn.
     u16 hpOnSwitchout;
     u16 switchIn:1;
     u16 notOnField:1;
