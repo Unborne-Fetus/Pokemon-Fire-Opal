@@ -175,6 +175,11 @@ bool32 ShouldUseItem(enum BattlerId battler)
             // Set selected party ID to current battler if none chosen.
             if (gBattleStruct->itemPartyIndex[battler] == PARTY_SIZE)
                 gBattleStruct->itemPartyIndex[battler] = gBattlerPartyIndexes[battler];
+            // Do not administer battle items to a raging Shadow Pokémon.
+            if (gBattleStruct->itemPartyIndex[battler] == gBattlerPartyIndexes[battler]
+             && GetBattlerAbility(battler) == ABILITY_SHADOW_RAGE
+             && gBattleMons[battler].volatiles.shadowRageActive)
+                continue;
             BtlController_EmitTwoReturnValues(battler, B_COMM_TO_ENGINE, B_ACTION_USE_ITEM, 0);
             gBattleStruct->chosenItem[battler] = item;
             gBattleHistory->trainerItems[itemIndex] = 0;
