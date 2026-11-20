@@ -408,3 +408,24 @@ const u16 gMetatiles_HallOfFame[] = INCBIN_U16("data/tilesets/secondary/hall_of_
 const u16 gMetatileAttributes_HallOfFame[] = INCBIN_U16("data/tilesets/secondary/hall_of_fame_frlg/metatile_attributes.bin");
 
 #endif // IS_FRLG
+
+// Fire Opal custom map tilesets. Original art and credits: assets/fire_opal/tilesets.
+// Metatiles in data/tilesets/ are converted from 12 to 8 tile references per metatile.
+
+const u16 gMetatiles_FireOpalDesert[] = INCBIN_U16("data/tilesets/primary/fire_opal_desert/metatiles.bin");
+const u16 gMetatileAttributes_FireOpalDesert[] = INCBIN_U16("data/tilesets/primary/fire_opal_desert/metatile_attributes.bin");
+
+const u16 gMetatiles_FireOpalDesertVillage[] = INCBIN_U16("data/tilesets/secondary/fire_opal_desert_village/metatiles.bin");
+const u16 gMetatileAttributes_FireOpalDesertVillage[] = INCBIN_U16("data/tilesets/secondary/fire_opal_desert_village/metatile_attributes.bin");
+
+const u16 gMetatiles_FireOpalShadyForest[] = INCBIN_U16("data/tilesets/secondary/fire_opal_shady_forest/metatiles.bin");
+const u16 gMetatileAttributes_FireOpalShadyForest[] = INCBIN_U16("data/tilesets/secondary/fire_opal_shady_forest/metatile_attributes.bin");
+
+const u16 gMetatiles_FireOpalUnderwaterReef[] = INCBIN_U16("data/tilesets/secondary/fire_opal_underwater_reef/metatiles.bin");
+const u16 gMetatileAttributes_FireOpalUnderwaterReef[] = INCBIN_U16("data/tilesets/secondary/fire_opal_underwater_reef/metatile_attributes.bin");
+
+const u16 gMetatiles_FireOpalVolcano[] = INCBIN_U16("data/tilesets/secondary/fire_opal_volcano/metatiles.bin");
+const u16 gMetatileAttributes_FireOpalVolcano[] = INCBIN_U16("data/tilesets/secondary/fire_opal_volcano/metatile_attributes.bin");
+
+const u16 gMetatiles_FireOpalSmallTown[] = INCBIN_U16("data/tilesets/secondary/fire_opal_small_town/metatiles.bin");
+const u16 gMetatileAttributes_FireOpalSmallTown[] = INCBIN_U16("data/tilesets/secondary/fire_opal_small_town/metatile_attributes.bin");

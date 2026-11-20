@@ -1,6 +1,6 @@
 # Fire Opal — Tileset staging library
 
-This directory holds **third-party source tilesets** for future Agave map design. Assets here are **not yet referenced by `data/tilesets`, a Porymap tileset definition, or a map layout**. Merely importing them must not alter vanilla game maps or the ROM build.
+This directory preserves the **original third-party source assets**. The six complete GBA tilesets are now registered as copies under `data/tilesets/primary/` and `data/tilesets/secondary/` and in the engine's tileset headers, so Porymap can select them for map layouts. They have **not** been assigned to any existing maps. The standalone Droid779 snow image is still unregistered.
 
 ## Imported from Team Aqua's Asset Repo
 
@@ -21,11 +21,11 @@ The files include source `tiles.png`, native metatile data, palette files `palet
 
 `droid779_snow/snow_tiles.png` is additional standalone **snow artwork**, credited to **Droid779**. It is not a complete native Porymap pack: its palettes, metatiles, and collision attributes need to be built before use.
 
-## Integration requirements
+## Registration and next steps
 
-1. For an actual in-game area, choose an appropriate primary and secondary set. Existing palettes and metatile indices must be checked for compatibility; do not assume two arbitrary sets work together.
-2. Register or rebuild tilesets with Porymap/Porytiles in the current pokeemerald-expansion base. Verify 4bpp palettes, tile indices, behaviors/collision, animations, and object priority.
-3. Apply new tilesets to appropriate **new** Agave map layouts and test an actual GBA build. Do **not** overwrite existing maps solely to stage art.
-4. Keep all upstream artist credits when importing or editing any portion of a pack.
+- All six GBA tile sources have `gTileset_FireOpal*` registrations in `src/data/tilesets/headers.h`; original art remains untouched here.
+- Source `metatiles.bin` uses 12 tile references per metatile; the current engine uses 8. Converted copies in `data/tilesets` retain the first two populated layers. Three-layer metatiles may need manual correction in Porymap to restore lost details. Recreate the conversion with `python tools/fire_opal/convert_metatiles.py`.
+- Water, flower, and other animation frames are present in staging when provided, but their animation callbacks still need integration.
+- No existing maps have been reassigned. Verify palettes, behaviors/collision, and in-game rendering before map release, and preserve the credits.
 
 See [artist credits and original six recommendations](../../../docs/TILESET_CREDITS.md). Noncommercial fan-game reuse terms are pack-specific; public availability does not mean every resource has the same license.

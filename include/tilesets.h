@@ -61,4 +61,13 @@ extern const struct Tileset gTileset_SSAnne;
 extern const struct Tileset gTileset_SeaCottage;
 extern const struct Tileset gTileset_TrainerTower;
 
+
+// Fire Opal selectable Porymap tilesets.
+extern const struct Tileset gTileset_FireOpalDesert;
+extern const struct Tileset gTileset_FireOpalDesertVillage;
+extern const struct Tileset gTileset_FireOpalShadyForest;
+extern const struct Tileset gTileset_FireOpalUnderwaterReef;
+extern const struct Tileset gTileset_FireOpalVolcano;
+extern const struct Tileset gTileset_FireOpalSmallTown;
+
 #endif //GUARD_tilesets_H

@@ -1,6 +1,6 @@
 # Pokémon Fire Opal — Tileset credits and sourcing
 
-> **Import state (2026-11-18):** The repository contains six **GBA-format tileset sources from Team Aqua's Asset Repo**, plus Droid779 snow art. They are staged under `assets/fire_opal/tilesets/`, **not integrated into active maps**. This document distinguishes those assets from the six originally recommended packs, some of whose original archives were not obtainable in this session.
+> **Registration state (2026-11-20):** Six GBA-format sets are now registered as `gTileset_FireOpal*` and have converted copies under `data/tilesets/` for Porymap use. Their original source assets remain in `assets/fire_opal/tilesets/`. **No maps use them yet.** Droid779 snow art is still standalone and unregistered. This document distinguishes the imported exchange sets from the original six recommendations.
 
 ## Attributions for files actually in the repository
 
@@ -30,6 +30,6 @@ These are references for later *direct* source imports. **Listing a resource bel
 
 ## Next implementation stage
 
-Before any of these graphics become active Fire Opal map tilesets: acquire and verify each missing original resource archive under its reuse terms, convert any RPG Maker/Essentials atlases to GBA-compatible palettes and metatiles, register the tilesets and animations, assign appropriate maps, and run the ROM plus Porymap checks.
+The six complete GBA tileset sets have engine registrations and converted 8-entry metatiles. **They are not yet assigned to maps**, their supplied animation frames are not wired, and conversion of originally three-layer blocks can discard one layer. Complete visual/collision checks in Porymap and a ROM build before describing them as fully integrated. Droid779's snow image still needs GBA metatiles, attributes and palette preparation.
 
-Do not label work as a fully integrated map tileset until collision, palette, metatile index, and build checks pass.
+See `assets/fire_opal/tilesets/README.md` and `tools/fire_opal/convert_metatiles.py` for the staging and conversion details.

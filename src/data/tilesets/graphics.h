@@ -3038,3 +3038,120 @@ const u16 ALIGNED(4) gTilesetPalettes_General_Frlg[][16] =
 const u32 gTilesetTiles_General_Frlg[] = INCGFX_U32("data/tilesets/primary/general_frlg/tiles.png", ".4bpp.smol");
 
 #endif // IS_FRLG
+
+// Fire Opal custom map tilesets. Original art and credits: assets/fire_opal/tilesets.
+// Metatiles in data/tilesets/ are converted from 12 to 8 tile references per metatile.
+
+const u32 gTilesetTiles_FireOpalDesert[] = INCGFX_U32("data/tilesets/primary/fire_opal_desert/tiles.png", ".4bpp.smol");
+
+const u16 gTilesetPalettes_FireOpalDesert[][16] =
+{
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/primary/fire_opal_desert/palettes/12.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_FireOpalDesertVillage[] = INCGFX_U32("data/tilesets/secondary/fire_opal_desert_village/tiles.png", ".4bpp.smol");
+
+const u16 gTilesetPalettes_FireOpalDesertVillage[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_desert_village/palettes/12.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_FireOpalShadyForest[] = INCGFX_U32("data/tilesets/secondary/fire_opal_shady_forest/tiles.png", ".4bpp.smol");
+
+const u16 gTilesetPalettes_FireOpalShadyForest[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_shady_forest/palettes/12.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_FireOpalUnderwaterReef[] = INCGFX_U32("data/tilesets/secondary/fire_opal_underwater_reef/tiles.png", ".4bpp.smol");
+
+const u16 gTilesetPalettes_FireOpalUnderwaterReef[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_underwater_reef/palettes/12.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_FireOpalVolcano[] = INCGFX_U32("data/tilesets/secondary/fire_opal_volcano/tiles.png", ".4bpp.smol");
+
+const u16 gTilesetPalettes_FireOpalVolcano[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_volcano/palettes/12.pal", ".gbapal"),
+};
+
+const u32 gTilesetTiles_FireOpalSmallTown[] = INCGFX_U32("data/tilesets/secondary/fire_opal_small_town/tiles.png", ".4bpp.smol");
+
+const u16 gTilesetPalettes_FireOpalSmallTown[][16] =
+{
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/00.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/01.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/02.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/03.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/04.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/05.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/06.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/07.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/08.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/09.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/10.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/11.pal", ".gbapal"),
+    INCGFX_U16("data/tilesets/secondary/fire_opal_small_town/palettes/12.pal", ".gbapal"),
+};

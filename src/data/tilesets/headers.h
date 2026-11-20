@@ -1541,3 +1541,72 @@ const struct Tileset gTileset_HallOfFame =
 };
 
 #endif // IS_FRLG
+
+// Fire Opal custom map tilesets. Original art and credits: assets/fire_opal/tilesets.
+// Metatiles in data/tilesets/ are converted from 12 to 8 tile references per metatile.
+
+const struct Tileset gTileset_FireOpalDesert =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_FireOpalDesert,
+    .palettes = gTilesetPalettes_FireOpalDesert,
+    .metatiles = gMetatiles_FireOpalDesert,
+    .metatileAttributes = gMetatileAttributes_FireOpalDesert,
+    .callback = NULL, // Source animation frames are staged, not yet wired.
+};
+
+const struct Tileset gTileset_FireOpalDesertVillage =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_FireOpalDesertVillage,
+    .palettes = gTilesetPalettes_FireOpalDesertVillage,
+    .metatiles = gMetatiles_FireOpalDesertVillage,
+    .metatileAttributes = gMetatileAttributes_FireOpalDesertVillage,
+    .callback = NULL, // Source animation frames are staged, not yet wired.
+};
+
+const struct Tileset gTileset_FireOpalShadyForest =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_FireOpalShadyForest,
+    .palettes = gTilesetPalettes_FireOpalShadyForest,
+    .metatiles = gMetatiles_FireOpalShadyForest,
+    .metatileAttributes = gMetatileAttributes_FireOpalShadyForest,
+    .callback = NULL, // Source animation frames are staged, not yet wired.
+};
+
+const struct Tileset gTileset_FireOpalUnderwaterReef =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_FireOpalUnderwaterReef,
+    .palettes = gTilesetPalettes_FireOpalUnderwaterReef,
+    .metatiles = gMetatiles_FireOpalUnderwaterReef,
+    .metatileAttributes = gMetatileAttributes_FireOpalUnderwaterReef,
+    .callback = NULL, // Source animation frames are staged, not yet wired.
+};
+
+const struct Tileset gTileset_FireOpalVolcano =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_FireOpalVolcano,
+    .palettes = gTilesetPalettes_FireOpalVolcano,
+    .metatiles = gMetatiles_FireOpalVolcano,
+    .metatileAttributes = gMetatileAttributes_FireOpalVolcano,
+    .callback = NULL, // Source animation frames are staged, not yet wired.
+};
+
+const struct Tileset gTileset_FireOpalSmallTown =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_FireOpalSmallTown,
+    .palettes = gTilesetPalettes_FireOpalSmallTown,
+    .metatiles = gMetatiles_FireOpalSmallTown,
+    .metatileAttributes = gMetatileAttributes_FireOpalSmallTown,
+    .callback = NULL, // Source animation frames are staged, not yet wired.
+};
